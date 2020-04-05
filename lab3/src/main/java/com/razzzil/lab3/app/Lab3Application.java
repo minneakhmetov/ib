@@ -28,19 +28,10 @@ import java.util.List;
 @ComponentScan("com.razzzil.lab3")
 public class Lab3Application {
 
-    @Autowired
-    private Environment environment;
-
     final static List<Resource> resources = new ArrayList<>();
 
     public static void main(String[] args) {
         SpringApplication.run(Lab3Application.class, args);
-    }
-
-    @EventListener({ApplicationReadyEvent.class})
-    public void applicationReadyEvent() {
-        LoggerFactory.getLogger(Application.class).info("Launching browser");
-        browse("http://localhost:" + environment.getProperty("local.server.port") + "/");
     }
 
     @Bean
@@ -52,6 +43,15 @@ public class Lab3Application {
             resources.add(new Resource(2, "Dog", "https://previews.123rf.com/images/isselee/isselee1510/isselee151000207/46944905-golden-retriever-sitting-in-front-of-a-white-background.jpg", new HashSet<>(Arrays.asList(Role.ADMIN, Role.MANAGER, Role.TEACHER))));
         }
         return resources;
+    }
+
+    @Autowired
+    private Environment environment;
+
+    @EventListener({ApplicationReadyEvent.class})
+    public void applicationReadyEvent() {
+        LoggerFactory.getLogger(Application.class).info("Launching browser");
+        browse("http://localhost:" + environment.getProperty("local.server.port") + "/");
     }
 
     public static void browse(String url) {
