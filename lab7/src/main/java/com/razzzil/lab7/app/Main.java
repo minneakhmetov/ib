@@ -12,14 +12,18 @@ public class Main {
     static File cipherText14 = new File("C:\\Users\\razil\\Desktop\\Git\\ib\\lab7\\src\\main\\resources\\14-1.txt");
 
     public static void main(String[] args) throws IOException {
+       decipher();
+    }
+
+    private static void decipher() throws IOException {
         Map<Character, Integer> rusTextCount = frequency(russianText);
         Map<Character, Integer> engTextCount = frequency(englishText);
         Map<Character, Integer> cipher6Count = frequency(cipherText6);
         Map<Character, Integer> cipher14Count = frequency(cipherText14);
 
         Map<Character, Character> replace = new HashMap<Character, Character>();
-        List<Character> keys = sort(engTextCount);
-        List<Character> ciphers = sort(cipher14Count);
+        List<Character> keys = sort(rusTextCount);
+        List<Character> ciphers = sort(cipher6Count);
         for (int i = 0; i < Math.max(keys.size(), ciphers.size()); i++){
             Character key = null, cipher = null;
             try {
@@ -31,10 +35,9 @@ public class Main {
             replace.put(cipher, key);
         }
 
-        replaceInText(cipherText14, replace);
+        replaceInText(cipherText6, replace);
         System.out.println("-------------------------------");
         printKey(replace);
-
     }
 
     private static void print(Map<Character, Integer> map){
@@ -64,6 +67,7 @@ public class Main {
         int s;
         while ((s = bufferedReader.read()) != -1){
             char key = (char) s;
+            if (key == '\n' || key == '\r') continue;
             if (!map.containsKey(key)){
                 map.put(key, 1);
             } else {
@@ -89,5 +93,7 @@ public class Main {
         }
         return characters;
     }
+
+
 
 }

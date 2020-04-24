@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-//@SpringBootApplication
 public class Lab5Application {
 
     private static final double P = 0.00001;
@@ -28,6 +27,7 @@ public class Lab5Application {
 
     public static void main(String[] args) {
         one();
+        System.out.println("--------------------------------");
         two();
     }
 
